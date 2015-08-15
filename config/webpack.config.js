@@ -56,7 +56,7 @@ module.exports = function configuration(options) {
       ],
       loaders: [{
         test: /\.jsx?$/,
-        loaders: ['react-hot', 'babel'],
+        loaders: ['react-hot', 'babel', 'flowcheck'],
         exclude: [/node_modules/, /__tests__/]
       }]
     },
