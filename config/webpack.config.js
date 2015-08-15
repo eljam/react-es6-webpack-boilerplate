@@ -32,7 +32,10 @@ module.exports = function configuration(options) {
   );
 
   let entryPath = [path.resolve(__dirname, '../app/main.js')];
-  entryPath.push('webpack/hot/dev-server');
+
+  if (!prod) {
+    entryPath.push('webpack/hot/dev-server');
+  }
 
   let config = {
     entry: entryPath,
