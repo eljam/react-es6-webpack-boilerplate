@@ -1,4 +1,14 @@
 import React from 'react';
-import Home from './components/home.jsx';
+import Router from 'react-router';
+import 'jquery';
+import './scss/main';
 
-React.render(<Home name="eljam" />, document.getElementById('app'));
+let routes = require('./routes');
+
+if (typeof document !== 'undefined' && window) {
+  window.onload = () => {
+    Router.run(routes, Router.HistoryLocation, (Handler) => {
+      React.render(<Handler/>, document.getElementById('app'));
+    });
+  };
+}
