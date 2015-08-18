@@ -18,8 +18,6 @@ let plugins = [new webpack.NoErrorsPlugin()];
 let outputPath = path.join(rootDir, 'build');
 let suffix = 'dev';
 
-let entryAppPath = [path.resolve(__dirname, '../app/main.js')];
-
 let config = {
   resolve: {
     modulesDirectories: ['node_modules', 'bower_components'],
@@ -60,6 +58,10 @@ let config = {
 module.exports = function configuration(options) {
   let prod = options.production;
 
+  let hash = prod ? '-[hash]' : '';
+
+  let entryAppPath = [path.resolve(__dirname, '../app/main.js')];
+
   if (prod) {
     suffix = 'prod';
     outputPath = path.join(rootDir, 'dist');
@@ -99,14 +101,17 @@ module.exports = function configuration(options) {
     })
   );
   plugins.push(
-    new ExtractTextPlugin('styles/main.css')
+    new ExtractTextPlugin('styles/main' + hash + '.css')
   );
   plugins.push(
     new webpack.optimize.CommonsChunkPlugin({
-      name: '[name]',
-      filename: 'vendors.js',
+      name: 'vendors',
+      filename: 'vendors' + hash + '.js',
       minChunks: Infinity
     })
+  );
+  plugins.push(
+    new webpack.optimize.OccurenceOrderPlugin(true)
   );
 
   if (!prod) {
@@ -120,9 +125,8 @@ module.exports = function configuration(options) {
     },
     output: {
       path: outputPath,
-      filename: '[name].js'
+      filename: '[name]' + hash + '.js'
     },
-    plugins: plugins,
-    root: outputPath
+    plugins: plugins
   });
 };

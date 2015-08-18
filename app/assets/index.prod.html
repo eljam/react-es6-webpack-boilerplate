@@ -2,13 +2,14 @@
 <html>
   <head>
     <meta charset="UTF-8"/>
-    <link rel="stylesheet" type="text/css" href="/styles/main.css">
+    <link rel="stylesheet" type="text/css" href="/styles/main.{%=o.webpack.hash%}.css">
   </head>
   <body>
     <div id="app">
         <p>Loading...</p>
     </div>
-    <script src="/vendors.js"></script>
-    <script src="/bundle.js"></script>
+    {% for (var chunk in o.htmlWebpackPlugin.files.chunks) { %}
+      <script src="/{%=o.htmlWebpackPlugin.files.chunks[chunk].entry %}"></script>
+    {% } %}
   </body>
 </html>
