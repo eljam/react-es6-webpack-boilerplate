@@ -32,14 +32,14 @@
     "html-webpack-plugin": "^1.6.1",
     "lodash": "^3.10.1",
     "node-sass": "^3.2.0",
+    "react": "^0.13.3",
+    "react-bootstrap": "^0.24.5",
     "react-hot-loader": "^1.2.8",
+    "react-router": "^0.13.3",
+    "react-router-bootstrap": "^0.18.1",
     "sass-loader": "^2.0.1",
     "style-loader": "^0.12.3",
     "url-loader": "^0.5.6",
-    "react": "^0.13.3",
-    "react-bootstrap": "^0.24.5",
-    "react-router": "^0.13.3",
-    "react-router-bootstrap": "^0.18.1",
     "webpack": "^1.11.0"
   }
 }
