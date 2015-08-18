@@ -43,14 +43,7 @@ let config = {
          'sass?precision=10&outputStyle=expanded&sourceMap=true&includePaths[]=' +
          path.resolve(__dirname, '../bower_components/bootstrap-sass/assets/stylesheets'))
       },
-      { test: /\.gif$/, loader: 'url?limit=10000&mimetype=image/gif' },
-      { test: /\.jpg$/, loader: 'url?limit=10000&mimetype=image/jpg' },
-      { test: /\.png$/, loader: 'url?limit=10000&mimetype=image/png' },
-      { test: /\.woff$/, loader: 'url?limit=10000&mimetype=application/font-woff' },
-      { test: /\.woff2$/, loader: 'url?limit=10000&mimetype=application/font-woff2' },
-      { test: /\.ttf$/, loader: 'file?mimetype=application/vnd.ms-fontobject' },
-      { test: /\.eot$/, loader: 'file?mimetype=application/x-font-ttf' },
-      { test: /\.svg$/, loader: 'file?mimetype=image/svg+xml' }
+      { test: /\.(jpe?g|png|gif|svg|woff|woff2|eot|ttf)$/, loader: 'url?limit=10000&name=[sha512:hash:base64:7].[ext]' }
     ]
   }
 };
