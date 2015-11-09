@@ -49,6 +49,7 @@ let config = {
 };
 
 module.exports = function configuration(options) {
+  'use strict';
   let prod = options.production;
 
   let hash = prod ? '-[hash]' : '';
@@ -88,6 +89,7 @@ module.exports = function configuration(options) {
     new webpack.optimize.DedupePlugin()
   );
   plugins.push(
+    // You can use $ or jquery in all components
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery'
