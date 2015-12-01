@@ -16,6 +16,11 @@ I've tried to take ideas from both to make a more understandable one.
 * **react-router** = A complete routing solution for React.js
 * **react-hot-loader** = reload your app when you change a file
 * **babel** = es6 compiler
+* **bootstrap-sass** = use bootstrap-sass from npm instead of bower because bower will be dead soon
+
+## Theming
+This boilerplate is based on boostrap 3.3.5.
+With the use of bootstrap-sass you can modify your app with two files `variables.scss` and `main.scss`
 
 ## Webpack configuration
 ### Plugins
@@ -25,7 +30,7 @@ I've tried to take ideas from both to make a more understandable one.
 ``npm run dev``
 
 This command run a webserver on **localhost:8080** by default.
-You can play with your app by changing components like the Hompage in **app/components/home.jsx**
+You can play with your app by changing components like the Hompage in **src/components/home.jsx**
 
 ### Production app
 ``npm run build``
