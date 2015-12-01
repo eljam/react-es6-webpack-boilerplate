@@ -5,59 +5,69 @@ import _ from 'lodash';
 
 import Clean from 'clean-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import BowerWebpackPlugin from 'bower-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 // Root app path
-let rootDir = path.resolve(__dirname, '..');
-let cleanDirectories = ['build', 'dist'];
+const rootDir = path.resolve(__dirname, '..');
+const cleanDirectories = ['build', 'dist'];
 // Plugins configuration
-let plugins = [new webpack.NoErrorsPlugin()];
+const plugins = [new webpack.NoErrorsPlugin()];
 
 // Default value for development env
 let outputPath = path.join(rootDir, 'build');
-let suffix = 'dev';
 
-let config = {
+const config = {
+  context: rootDir,
   resolve: {
-    modulesDirectories: ['node_modules', 'bower_components'],
-    extensions: ['', '.js', '.jsx', '.scss']
+    modulesDirectories: ['src', 'node_modules'],
+    extensions: ['', '.js', '.jsx']
   },
   module: {
-    preLoaders: [
-      {
-        test: /\.js$/,
-        exclude: [/node_modules/, /bower_components/],
-        loader: 'eslint-loader'
-      }
-    ],
     loaders: [
+      { test: /bootstrap\/js\//, loader: 'imports-loader?jQuery=jquery' },
       {
         test: /\.jsx?$/,
         loaders: ['react-hot', 'babel', 'flowcheck'],
-        exclude: [/node_modules/, /bower_components/, /__tests__/]
+        exclude: [/node_modules/, /__tests__/]
+      },
+      {
+        test: /\.js$/,
+        exclude: [/node_modules/],
+        loader: 'eslint-loader'
       },
       {
         test: /\.scss$/,
         loader: ExtractTextPlugin.extract('style', 'css!' +
-         'sass?precision=10&outputStyle=expanded&sourceMap=true&includePaths[]=' +
-         path.resolve(__dirname, '../bower_components/bootstrap-sass/assets/stylesheets'))
+         'sass?precision=10&outputStyle=expanded&sourceMap=true')
       },
-      { test: /\.(jpe?g|png|gif|svg|woff|woff2|eot|ttf)$/, loader: 'url?limit=10000&name=[sha512:hash:base64:7].[ext]' }
+      {
+        test: /\.less$/,
+        loader: ExtractTextPlugin.extract('style', 'css!' +
+         'less?outputStyle=expanded&sourceMap=true')
+      },
+      { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/font-woff' },
+      { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/font-woff' },
+      { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream' },
+      { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file' },
+      { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml' },
+      { test: /\.(jpe?g|png|gif)$/, loader: 'url?limit=10000&name=[sha512:hash:base64:7].[ext]' }
     ]
   }
 };
 
 module.exports = function configuration(options) {
-  'use strict';
-  let prod = options.production;
+  const prod = options.production;
 
-  let hash = prod ? '-[hash]' : '';
+  const hash = prod ? '-[hash]' : '';
+  const suffix = prod ? '.prod' : '';
 
-  let entryAppPath = [path.resolve(__dirname, '../app/main.js')];
+  const entryAppPath = [
+    'bootstrap-sass!./src/theme/bootstrap.config.js',
+    'font-awesome-webpack!./src/theme/font-awesome.config.js',
+    './src/main.js'
+  ];
 
   if (prod) {
-    suffix = 'prod';
     outputPath = path.join(rootDir, 'dist');
     plugins.push(
       new webpack.optimize.UglifyJsPlugin({
@@ -73,16 +83,7 @@ module.exports = function configuration(options) {
   plugins.push(
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: 'app/assets/index.' + suffix + '.html'
-    })
-  );
-  plugins.push(
-    new BowerWebpackPlugin({
-      modulesDirectories: ['bower_components'],
-      manifestFiles: 'bower.json',
-      includes: /.*/,
-      excludes: [],
-      searchResolveModulesDirectories: true
+      template: 'static/index' + suffix + '.html'
     })
   );
   plugins.push(

@@ -1,5 +1,5 @@
 require('babel/register');
 
-module.exports = require('./webpack.config')({
+module.exports = require('./config')({
   production: true
 });
