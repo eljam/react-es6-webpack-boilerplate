@@ -6,7 +6,7 @@ Work well with nodejs 0.12.7, did not work yet on v4
 es6 boilerplate are too complex actually.
 
 This boilerplate is not to provide an advanced nor a simple boilerplate but something between.
-As you can see on github, there are a lot of boilerplates that are too simple or two complex.
+As you can see on github, there are a lot of boilerplates that are too simple or too complex.
 I've tried to take ideas from both to make a more understandable one.
 
 ## Tools
