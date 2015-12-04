@@ -18,6 +18,15 @@ I've tried to take ideas from both to make a more understandable one.
 * **babel** = es6 compiler
 * **bootstrap-sass** = use bootstrap-sass from npm instead of bower because bower will be dead soon
 
+## Testing
+We are using:
+
+* [mocha][3] to describe test and run test
+* [chai][2] for assertion 
+* [reagent][1] for testing react component
+
+All test should be in `src/components/__tests__`
+
 ## Theming
 This boilerplate is based on boostrap 3.3.5.
 With the use of bootstrap-sass you can modify your app with two files `variables.scss` and `main.scss`
@@ -41,3 +50,8 @@ There is a **vendors-[hash].js** that contains external libraries like react, bo
 
 **[hash]** is very import because you need to have differents filenames for your scripts when you deploy to production to invalidate client cache.
 ``This hash is generate by webpack``
+
+
+[1]: https://github.com/airbnb/reagent
+[2]: http://chaijs.com 
+[3]: https://mochajs.org/

@@ -9,7 +9,7 @@ export default (
   <Route name="home" path="/" component={Application}>
     <IndexRoute component={Home} />
 
-    <Route name="hello" path="hello/:name"component={Hello} />
+    <Route name="hello" path="hello/:name" component={Hello} />
 
     { /* Catch all route */ }
     <Route path="*" component={NotFound} status={404} />
